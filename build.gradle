@@ -16,3 +16,10 @@ dependencies {
     compile group: 'com.netflix.feign', name: 'feign-jackson', version: '8.18.0'
     compile group: 'commons-cli', name: 'commons-cli', version: '1.4'
 }
+
+jar {
+    from configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
+    manifest {
+        attributes 'Main-Class': 'rocks.massi.controller.Application'
+    }
+}
