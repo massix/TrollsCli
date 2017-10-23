@@ -30,6 +30,9 @@ public class CommandRouter extends LinkedList<Command> {
     }
 
     public void help() {
-        forEach(cmd -> System.out.println(cmd.help()));
+        forEach(cmd -> {
+            String[] help = cmd.help().split("\t");
+            System.out.printf(Command.FORMAT, help[0], help[1]);
+        });
     }
 }
