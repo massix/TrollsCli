@@ -1,8 +1,6 @@
 package rocks.massi.controller.commands;
 
 import feign.Response;
-import org.apache.commons.cli.CommandLine;
-import org.apache.commons.cli.DefaultParser;
 import org.apache.commons.cli.ParseException;
 
 public class CrawlCollectionCommand extends Command {
@@ -10,15 +8,7 @@ public class CrawlCollectionCommand extends Command {
 
     @Override
     public void run(String[] args) throws ParseException, HelpRequestedException {
-        // Parse CLI
-        CommandLine commandLine = new DefaultParser().parse(options, args);
-        String nick;
-        if (commandLine.getArgList().isEmpty()) {
-            throw new MissingArgumentException("Missing argument [nick]");
-        }
-        else {
-            nick = String.join(" ", commandLine.getArgList());
-        }
+        String nick = parseArgsForString(args);
 
         Response response = connector.crawlCollection(nick);
         if (response.status() == SC_ACCEPTED) {

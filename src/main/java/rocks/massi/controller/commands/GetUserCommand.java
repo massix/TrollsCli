@@ -11,17 +11,9 @@ public class GetUserCommand extends Command {
 
     @Override
     public void run(String[] args) throws ParseException {
-        // Parse CLI
-        CommandLine commandLine = new DefaultParser().parse(options, args);
-        String nick;
-        if (commandLine.getArgList().isEmpty()) {
-            throw new MissingArgumentException("Missing argument [nick]");
-        }
-        else {
-            nick = String.join(" ", commandLine.getArgList());
-        }
-
+        String nick = parseArgsForString(args);
         User user = connector.getUser(nick);
+
         if (user != null) {
             String[] games = {""};
             if (user.getGames() != null)
