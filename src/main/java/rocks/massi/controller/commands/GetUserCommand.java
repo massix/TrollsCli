@@ -1,26 +1,13 @@
 package rocks.massi.controller.commands;
 
-import feign.Feign;
-import feign.jackson.JacksonDecoder;
-import feign.jackson.JacksonEncoder;
 import lombok.ToString;
-import org.apache.commons.cli.*;
-import rocks.massi.controller.configuration.ServerConfiguration;
+import org.apache.commons.cli.CommandLine;
+import org.apache.commons.cli.DefaultParser;
+import org.apache.commons.cli.ParseException;
 import rocks.massi.controller.data.User;
-import rocks.massi.controller.services.TrollsServer;
 
 @ToString
-public class GetUserCommand implements Command {
-    private final TrollsServer trollsServer;
-    private Options options;
-
-    public GetUserCommand() {
-        trollsServer = Feign.builder()
-                .decoder(new JacksonDecoder())
-                .encoder(new JacksonEncoder())
-                .target(TrollsServer.class, ServerConfiguration.getInstance().getServerAddress());
-        options = new Options();
-    }
+public class GetUserCommand extends Command {
 
     @Override
     public void run(String[] args) throws ParseException {
@@ -34,7 +21,7 @@ public class GetUserCommand implements Command {
             nick = String.join(" ", commandLine.getArgList());
         }
 
-        User user = trollsServer.getUser(nick);
+        User user = connector.getUser(nick);
         if (user != null) {
             String[] games = {""};
             if (user.getGames() != null)

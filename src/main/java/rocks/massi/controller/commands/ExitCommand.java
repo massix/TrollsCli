@@ -1,8 +1,6 @@
 package rocks.massi.controller.commands;
 
-import org.apache.commons.cli.ParseException;
-
-public class ExitCommand implements Command {
+public class ExitCommand extends Command {
     @Override
     public void run(String[] args) {
 

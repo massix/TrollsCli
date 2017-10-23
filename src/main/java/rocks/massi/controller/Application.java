@@ -13,8 +13,8 @@ import java.util.Arrays;
 import java.util.Scanner;
 
 public class Application {
-    public static Options options;
-    public static CommandRouter router;
+    private static Options options;
+    private static CommandRouter router;
 
     public static void main(String[] args) throws ParseException {
         options = new Options();
@@ -30,6 +30,12 @@ public class Application {
         router.add(new GetUserCommand());
         router.add(new AddUserCommand());
         router.add(new RemoveUserCommand());
+        router.add(new GetGameCommand());
+        router.add(new CrawlUserCommand());
+        router.add(new CrawlCollectionCommand());
+        router.add(new GetQueueCommand());
+        router.add(new GetQueuesCommand());
+        router.add(new PurgeCompletedQueuesCommand());
         router.add(new HelpCommand());
         router.add(new ExitCommand());
 

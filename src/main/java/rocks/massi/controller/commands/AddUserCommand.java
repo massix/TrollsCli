@@ -1,25 +1,15 @@
 package rocks.massi.controller.commands;
 
-import feign.Feign;
 import feign.FeignException;
-import feign.jackson.JacksonDecoder;
-import feign.jackson.JacksonEncoder;
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.DefaultParser;
-import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
-import rocks.massi.controller.configuration.ServerConfiguration;
 import rocks.massi.controller.data.User;
-import rocks.massi.controller.services.TrollsServer;
 
-public class AddUserCommand implements Command {
-    private final TrollsServer trollsServer;
-    private Options options;
+public class AddUserCommand extends Command {
 
     public AddUserCommand() {
-        trollsServer = Feign.builder().encoder(new JacksonEncoder()).decoder(new JacksonDecoder())
-                .target(TrollsServer.class, ServerConfiguration.getInstance().getServerAddress());
-        options = new Options();
+        super();
 
         options.addRequiredOption("b", "bggNick", true, "Nick on bgg");
         options.addRequiredOption("f", "forumNick", true, "Nick on the forum");
@@ -35,7 +25,7 @@ public class AddUserCommand implements Command {
         toBeAdded.setForumNick(forumNick);
 
         try {
-            User ret = trollsServer.addUser(toBeAdded);
+            User ret = connector.addUser(toBeAdded);
             System.out.println("Added user " + ret.getBggNick());
         }
         catch(FeignException exception) {
