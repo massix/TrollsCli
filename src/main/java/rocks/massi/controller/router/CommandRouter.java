@@ -17,18 +17,15 @@ public class CommandRouter extends LinkedList<Command> {
                 try {
                     cmd.run(args);
                 }
-                catch (MissingArgumentException ex) {
-                    System.err.println(ex.getMessage());
-                }
-                catch (ParseException ex) {
+                catch (MissingArgumentException | ParseException ex) {
                     System.err.println(ex.getMessage());
                 } catch (HelpRequestedException e) {
                     help();
                 }
-            };
+            }
         });
 
-        if (found[0] == false) throw new CommandNotFoundException(
+        if (!found[0]) throw new CommandNotFoundException(
                 String.format("Can't find command '%s', sorry.", command));
     }
 
