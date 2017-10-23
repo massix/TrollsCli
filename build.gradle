@@ -1,0 +1,18 @@
+group 'rocks.massi'
+version '1.0.0-SNAPSHOT'
+
+apply plugin: 'java'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+    compileOnly 'org.projectlombok:lombok:1.16.18'
+    compile group: 'com.netflix.feign', name: 'feign-core', version: '8.18.0'
+    compile group: 'com.netflix.feign', name: 'feign-jackson', version: '8.18.0'
+    compile group: 'commons-cli', name: 'commons-cli', version: '1.4'
+}
