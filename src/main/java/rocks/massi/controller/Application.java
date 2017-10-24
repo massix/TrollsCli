@@ -33,6 +33,7 @@ public class Application {
         router.add(new GetGameCommand());
         router.add(new CrawlUserCommand());
         router.add(new CrawlCollectionCommand());
+        router.add(new GetCollectionCommand());
         router.add(new GetQueueCommand());
         router.add(new GetQueuesCommand());
         router.add(new PurgeCompletedQueuesCommand());

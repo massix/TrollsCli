@@ -6,6 +6,7 @@ import lombok.Data;
 public class ServerConfiguration {
     private static ServerConfiguration instance;
     private String serverAddress;
+    private String proxy;
 
     private ServerConfiguration() {}
 
