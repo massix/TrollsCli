@@ -47,4 +47,7 @@ public interface TrollsServer {
 
     @RequestLine("GET /v1/collection/get/{user}")
     List<Game> getCollection(@Param("user") final String user);
+
+    @RequestLine("POST /v1/dbcontroller/create")
+    void createSchema();
 }

@@ -31,6 +31,7 @@ public class Application {
 
         // Register commands in Router
         router = new CommandRouter();
+        router.add(new CreateDatabaseCommand());
         router.add(new GetUsersCommand());
         router.add(new GetUserCommand());
         router.add(new AddUserCommand());
