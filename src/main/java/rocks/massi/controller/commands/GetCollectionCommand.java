@@ -11,11 +11,14 @@ public class GetCollectionCommand extends Command {
         String user = parseArgsForString(args);
         List<Game> games = connector.getCollection(user);
         System.out.println(String.format("%-10s %-60s %s", "id", "name", "rank"));
-        System.out.println("+----------------------------------------------------------------------------+");
+        System.out.println("-----------------------------------------------------------------------------");
         games.forEach(game -> System.out.println(String.format("%-10d %-60s %d",
                 game.getId(),
                 game.getName().substring(0, Math.min(58, game.getName().length())),
                 game.getRank())));
+
+        System.out.println("-----------------------------------------------------------------------------");
+        System.out.println(String.format("%-71s %d", "Owned games", games.size()));
     }
 
     @Override
