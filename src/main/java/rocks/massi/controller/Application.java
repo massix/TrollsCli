@@ -36,6 +36,7 @@ public class Application {
         router.add(new AddUserCommand());
         router.add(new RemoveUserCommand());
         router.add(new GetGameCommand());
+        router.add(new SearchGameCommand());
         router.add(new CrawlUserCommand());
         router.add(new CrawlCollectionCommand());
         router.add(new GetCollectionCommand());

@@ -42,6 +42,9 @@ public interface TrollsServer {
     @RequestLine("GET /v1/games/get/{id}")
     Game getGame(@Param("id") final int id);
 
+    @RequestLine("GET /v1/games/get")
+    List<Game> getAllGames();
+
     @RequestLine("GET /v1/collection/get/{user}")
     List<Game> getCollection(@Param("user") final String user);
 }

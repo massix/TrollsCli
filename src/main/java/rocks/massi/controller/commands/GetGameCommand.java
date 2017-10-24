@@ -2,6 +2,10 @@ package rocks.massi.controller.commands;
 
 import org.apache.commons.cli.ParseException;
 import rocks.massi.controller.data.Game;
+import rocks.massi.controller.data.User;
+
+import java.util.LinkedList;
+import java.util.List;
 
 public class GetGameCommand extends Command {
     @Override
@@ -9,10 +13,21 @@ public class GetGameCommand extends Command {
         int gameId = parseArgsForInt(args);
 
         Game game = connector.getGame(gameId);
+        List<User> users = connector.getAllUsers();
         if (game != null) {
-            System.out.println("ID    : " + game.getId());
-            System.out.println("Name  : " + game.getName());
-            System.out.println("Rank  : " + game.getRank());
+            List<String> owners = new LinkedList<>();
+            for (User u : users) {
+                if (u.buildCollection().contains(game.getId())) {
+                    owners.add(u.getBggNick());
+                }
+            }
+
+            System.out.println(String.format("%-10s %-60s %-7s %s", "id", "name", "rank", "owners"));
+            System.out.println(String.format("%-10d %-60s %-7d %s",
+                    game.getId(),
+                    game.getName().substring(0, Math.min(58, game.getName().length())),
+                    game.getRank(),
+                    String.join(", ", owners)));
         }
         else {
             System.err.println("Game with id " + gameId + " doesn't exist.");
