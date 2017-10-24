@@ -10,6 +10,7 @@ import rocks.massi.controller.router.CommandNotFoundException;
 import rocks.massi.controller.router.CommandRouter;
 
 import java.util.Arrays;
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 public class Application {
@@ -19,10 +20,14 @@ public class Application {
     public static void main(String[] args) throws ParseException {
         options = new Options();
         options.addRequiredOption("s", "server", true, "Set server");
+        options.addOption("p", "proxy", true, "Set proxy");
 
         // Parse CLI
         CommandLine cli = new DefaultParser().parse(options, args);
         ServerConfiguration.getInstance().setServerAddress(cli.getOptionValue("s"));
+
+        if (cli.hasOption("p"))
+            ServerConfiguration.getInstance().setProxy(cli.getOptionValue("p"));
 
         // Register commands in Router
         router = new CommandRouter();
@@ -47,14 +52,17 @@ public class Application {
         Scanner in = new Scanner(System.in);
 
         while (! command.equals("exit")) {
-            System.out.print("\ncmd> ");
-            command = in.nextLine();
-            String[] split = command.split(" ");
             try {
+                System.out.print("\ncmd> ");
+                command = in.nextLine();
+                String[] split = command.split(" ");
                 router.route(split[0], Arrays.copyOfRange(split, 1, split.length));
             }
             catch (CommandNotFoundException ex) {
                 System.err.println(ex.getMessage());
+            }
+            catch (NoSuchElementException exc) {
+                break;
             }
         }
     }
