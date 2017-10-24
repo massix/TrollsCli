@@ -21,4 +21,14 @@ public class User {
         }
         return ret;
     }
+
+    public List<Integer> buildWants() {
+        List<Integer> ret = new LinkedList<>();
+        if (!wants.isEmpty()) {
+            for (String game : wants.split(" ")) {
+                ret.add(Integer.valueOf(game));
+            }
+        }
+        return ret;
+    }
 }
