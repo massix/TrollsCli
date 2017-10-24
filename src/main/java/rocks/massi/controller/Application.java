@@ -10,6 +10,7 @@ import rocks.massi.controller.router.CommandNotFoundException;
 import rocks.massi.controller.router.CommandRouter;
 
 import java.util.Arrays;
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 public class Application {
@@ -50,14 +51,17 @@ public class Application {
         Scanner in = new Scanner(System.in);
 
         while (! command.equals("exit")) {
-            System.out.print("\ncmd> ");
-            command = in.nextLine();
-            String[] split = command.split(" ");
             try {
+                System.out.print("\ncmd> ");
+                command = in.nextLine();
+                String[] split = command.split(" ");
                 router.route(split[0], Arrays.copyOfRange(split, 1, split.length));
             }
             catch (CommandNotFoundException ex) {
                 System.err.println(ex.getMessage());
+            }
+            catch (NoSuchElementException exc) {
+                break;
             }
         }
     }
