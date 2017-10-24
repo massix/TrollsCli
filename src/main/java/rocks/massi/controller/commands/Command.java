@@ -16,7 +16,7 @@ import rocks.massi.controller.services.TrollsServer;
 public abstract class Command {
     protected TrollsServer connector;
     Options options;
-    public static String FORMAT = "%-45s%s%n";
+    public static String FORMAT = "%-45s %s %n";
 
     public Command() {
         HttpClientBuilder builder = HttpClientBuilder.create();
