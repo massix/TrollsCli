@@ -19,10 +19,14 @@ public class Application {
     public static void main(String[] args) throws ParseException {
         options = new Options();
         options.addRequiredOption("s", "server", true, "Set server");
+        options.addOption("p", "proxy", true, "Set proxy");
 
         // Parse CLI
         CommandLine cli = new DefaultParser().parse(options, args);
         ServerConfiguration.getInstance().setServerAddress(cli.getOptionValue("s"));
+
+        if (cli.hasOption("p"))
+            ServerConfiguration.getInstance().setProxy(cli.getOptionValue("p"));
 
         // Register commands in Router
         router = new CommandRouter();
