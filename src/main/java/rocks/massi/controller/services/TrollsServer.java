@@ -6,6 +6,7 @@ import feign.RequestLine;
 import feign.Response;
 import rocks.massi.controller.data.Game;
 import rocks.massi.controller.data.Queue;
+import rocks.massi.controller.data.ServerInformation;
 import rocks.massi.controller.data.User;
 
 import java.util.List;
@@ -50,4 +51,7 @@ public interface TrollsServer {
 
     @RequestLine("POST /v1/dbcontroller/create")
     void createSchema();
+
+    @RequestLine("GET /v1/server/information")
+    ServerInformation getVersion();
 }

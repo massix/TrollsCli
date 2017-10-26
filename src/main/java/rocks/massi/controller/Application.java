@@ -44,6 +44,7 @@ public class Application {
         router.add(new GetQueueCommand());
         router.add(new GetQueuesCommand());
         router.add(new PurgeCompletedQueuesCommand());
+        router.add(new GetVersionCommand());
         router.add(new HelpCommand());
         router.add(new ExitCommand());
 
