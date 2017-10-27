@@ -1,11 +1,17 @@
 package rocks.massi.controller.commands;
 
 import org.apache.commons.cli.ParseException;
+import rocks.massi.controller.data.ServerInformation;
 
 public class GetVersionCommand extends Command {
     @Override
     public void run(String[] args) throws ParseException, HelpRequestedException {
-        System.out.println(connector.getVersion().getVersion());
+        ServerInformation serverInformation = connector.getVersion();
+
+        System.out.printf("Version: %s - Artifact: %s - Build: %s\n",
+                serverInformation.getVersion(),
+                serverInformation.getArtifact(),
+                serverInformation.getTimestamp());
     }
 
     @Override

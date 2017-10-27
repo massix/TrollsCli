@@ -6,4 +6,5 @@ import lombok.Data;
 public class ServerInformation {
     private String version;
     private String artifact;
+    private String timestamp;
 }
