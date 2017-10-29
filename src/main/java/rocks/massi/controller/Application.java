@@ -58,6 +58,7 @@ public class Application {
         router.add(new PurgeCompletedQueuesCommand());
         router.add(new GetCacheCommand());
         router.add(new GetVersionCommand());
+        router.add(new UpdateAllUsersCommand());
         router.add(new HelpCommand());
         router.add(new ExitCommand());
 
