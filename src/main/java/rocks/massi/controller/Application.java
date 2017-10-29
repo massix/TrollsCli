@@ -44,6 +44,7 @@ public class Application {
         router.add(new GetQueueCommand());
         router.add(new GetQueuesCommand());
         router.add(new PurgeCompletedQueuesCommand());
+        router.add(new GetCacheCommand());
         router.add(new GetVersionCommand());
         router.add(new HelpCommand());
         router.add(new ExitCommand());
@@ -66,6 +67,9 @@ public class Application {
             }
             catch (NoSuchElementException exc) {
                 break;
+            }
+            catch (Exception e) {
+                System.err.println(e.getMessage());
             }
         }
     }

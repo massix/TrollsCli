@@ -4,10 +4,7 @@ import feign.Headers;
 import feign.Param;
 import feign.RequestLine;
 import feign.Response;
-import rocks.massi.controller.data.Game;
-import rocks.massi.controller.data.Queue;
-import rocks.massi.controller.data.ServerInformation;
-import rocks.massi.controller.data.User;
+import rocks.massi.controller.data.*;
 
 import java.util.List;
 
@@ -54,4 +51,7 @@ public interface TrollsServer {
 
     @RequestLine("GET /v1/server/information")
     ServerInformation getVersion();
+
+    @RequestLine("GET /v1/cache/get")
+    Cache getCache();
 }
