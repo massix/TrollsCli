@@ -1,9 +1,6 @@
 package rocks.massi.controller;
 
-import org.apache.commons.cli.CommandLine;
-import org.apache.commons.cli.DefaultParser;
-import org.apache.commons.cli.Options;
-import org.apache.commons.cli.ParseException;
+import org.apache.commons.cli.*;
 import rocks.massi.controller.commands.*;
 import rocks.massi.controller.configuration.ServerConfiguration;
 import rocks.massi.controller.router.CommandNotFoundException;
@@ -19,15 +16,30 @@ public class Application {
 
     public static void main(String[] args) throws ParseException {
         options = new Options();
-        options.addRequiredOption("s", "server", true, "Set server");
+        options.addOption("s", "server", true, "Set server (required parameter)");
         options.addOption("p", "proxy", true, "Set proxy");
+        options.addOption("c", "command", true, "Run a single command and leave");
+        options.addOption("h", "help", false, "Print help and leave");
 
         // Parse CLI
         CommandLine cli = new DefaultParser().parse(options, args);
         ServerConfiguration.getInstance().setServerAddress(cli.getOptionValue("s"));
 
-        if (cli.hasOption("p"))
+        String singleCommand = "";
+
+        if (cli.hasOption("p")) {
             ServerConfiguration.getInstance().setProxy(cli.getOptionValue("p"));
+        }
+
+        if (cli.hasOption("c")) {
+            singleCommand = cli.getOptionValue("c");
+        }
+
+        if (cli.hasOption("h") || ! cli.hasOption("s")) {
+            HelpFormatter formatter = new HelpFormatter();
+            formatter.printHelp("controller", options);
+            System.exit(0);
+        }
 
         // Register commands in Router
         router = new CommandRouter();
@@ -49,8 +61,22 @@ public class Application {
         router.add(new HelpCommand());
         router.add(new ExitCommand());
 
-        System.out.println("Available commands");
-        router.help();
+        if (singleCommand.isEmpty()) {
+            System.out.println("Available commands");
+            router.help();
+        }
+        else {
+            String[] commands = singleCommand.trim().split(";");
+
+            for (String command : commands) {
+                if (!command.isEmpty()) {
+                    String[] split = command.trim().split(" ");
+                    router.route(split[0], Arrays.copyOfRange(split, 1, split.length));
+                }
+            }
+
+            System.exit(0);
+        }
 
         String command = "";
         Scanner in = new Scanner(System.in);
@@ -59,7 +85,7 @@ public class Application {
             try {
                 System.out.print("\ncmd> ");
                 command = in.nextLine();
-                String[] split = command.split(" ");
+                String[] split = command.trim().split(" ");
                 router.route(split[0], Arrays.copyOfRange(split, 1, split.length));
             }
             catch (CommandNotFoundException ex) {
