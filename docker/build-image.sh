@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-REGISTRY="registry.massi.rocks:80/"
+REGISTRY="registry.massi.rocks/"
 DOCKER_IMAGE="trolls/cli"
 DOCKER_TAG="latest"
 
