@@ -59,6 +59,8 @@ public class Application {
         router.add(new GetCacheCommand());
         router.add(new GetVersionCommand());
         router.add(new UpdateAllUsersCommand());
+        router.add(new GetGameFromBggCommand());
+        router.add(new SearchGamesOnBgg());
         router.add(new HelpCommand());
         router.add(new ExitCommand());
 

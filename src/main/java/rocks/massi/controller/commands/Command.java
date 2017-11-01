@@ -4,6 +4,8 @@ import feign.Feign;
 import feign.httpclient.ApacheHttpClient;
 import feign.jackson.JacksonDecoder;
 import feign.jackson.JacksonEncoder;
+import feign.jaxb.JAXBContextFactory;
+import feign.jaxb.JAXBDecoder;
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.DefaultParser;
 import org.apache.commons.cli.Options;
@@ -11,10 +13,13 @@ import org.apache.commons.cli.ParseException;
 import org.apache.http.HttpHost;
 import org.apache.http.impl.client.HttpClientBuilder;
 import rocks.massi.controller.configuration.ServerConfiguration;
+import rocks.massi.controller.services.BGGXmlApi;
 import rocks.massi.controller.services.TrollsServer;
 
 public abstract class Command {
     protected TrollsServer connector;
+    protected BGGXmlApi bggXmlApi;
+
     Options options;
     public static String FORMAT = "%-45s %s %n";
 
@@ -39,6 +44,12 @@ public abstract class Command {
                 .encoder(new JacksonEncoder())
                 .client(new ApacheHttpClient(builder.build()))
                 .target(TrollsServer.class, ServerConfiguration.getInstance().getServerAddress());
+
+        JAXBContextFactory jaxbContextFactory = new JAXBContextFactory.Builder().build();
+        bggXmlApi = Feign.builder()
+                .decoder(new JAXBDecoder(jaxbContextFactory))
+                .client(new ApacheHttpClient(builder.build()))
+                .target(BGGXmlApi.class, "https://www.boardgamegeek.com/xmlapi/");
 
         options = new Options();
     }
