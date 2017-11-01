@@ -4,7 +4,7 @@ import feign.FeignException;
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.DefaultParser;
 import org.apache.commons.cli.ParseException;
-import rocks.massi.controller.data.User;
+import rocks.massi.controller.data.trolls.User;
 
 public class AddUserCommand extends Command {
 

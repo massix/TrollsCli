@@ -1,4 +1,4 @@
-package rocks.massi.controller.data;
+package rocks.massi.controller.data.trolls;
 
 import lombok.Data;
 import lombok.ToString;

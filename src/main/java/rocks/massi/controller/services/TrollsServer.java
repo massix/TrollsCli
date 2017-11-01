@@ -4,7 +4,7 @@ import feign.Headers;
 import feign.Param;
 import feign.RequestLine;
 import feign.Response;
-import rocks.massi.controller.data.*;
+import rocks.massi.controller.data.trolls.*;
 
 import java.util.List;
 

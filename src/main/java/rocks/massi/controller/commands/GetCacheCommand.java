@@ -1,7 +1,7 @@
 package rocks.massi.controller.commands;
 
 import org.apache.commons.cli.ParseException;
-import rocks.massi.controller.data.Cache;
+import rocks.massi.controller.data.trolls.Cache;
 
 public class GetCacheCommand extends Command {
     @Override

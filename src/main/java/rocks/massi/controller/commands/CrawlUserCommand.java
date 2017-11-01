@@ -2,7 +2,7 @@ package rocks.massi.controller.commands;
 
 import feign.FeignException;
 import org.apache.commons.cli.ParseException;
-import rocks.massi.controller.data.User;
+import rocks.massi.controller.data.trolls.User;
 
 public class CrawlUserCommand extends Command {
 

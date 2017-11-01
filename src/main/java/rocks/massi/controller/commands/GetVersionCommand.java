@@ -1,7 +1,7 @@
 package rocks.massi.controller.commands;
 
 import org.apache.commons.cli.ParseException;
-import rocks.massi.controller.data.ServerInformation;
+import rocks.massi.controller.data.trolls.ServerInformation;
 
 public class GetVersionCommand extends Command {
     @Override

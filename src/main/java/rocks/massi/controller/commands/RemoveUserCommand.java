@@ -1,7 +1,7 @@
 package rocks.massi.controller.commands;
 
 import org.apache.commons.cli.ParseException;
-import rocks.massi.controller.data.User;
+import rocks.massi.controller.data.trolls.User;
 
 public class RemoveUserCommand extends Command {
     @Override

@@ -2,7 +2,7 @@ package rocks.massi.controller.commands;
 
 import feign.FeignException;
 import org.apache.commons.cli.ParseException;
-import rocks.massi.controller.data.Queue;
+import rocks.massi.controller.data.trolls.Queue;
 
 public class GetQueueCommand extends Command {
     @Override

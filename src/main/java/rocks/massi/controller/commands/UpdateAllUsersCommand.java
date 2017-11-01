@@ -2,8 +2,8 @@ package rocks.massi.controller.commands;
 
 import feign.Response;
 import org.apache.commons.cli.ParseException;
-import rocks.massi.controller.data.Queue;
-import rocks.massi.controller.data.User;
+import rocks.massi.controller.data.trolls.Queue;
+import rocks.massi.controller.data.trolls.User;
 
 import java.util.List;
 

@@ -1,7 +1,7 @@
 package rocks.massi.controller.commands;
 
 import org.apache.commons.cli.ParseException;
-import rocks.massi.controller.data.Game;
+import rocks.massi.controller.data.trolls.Game;
 
 import java.util.List;
 
