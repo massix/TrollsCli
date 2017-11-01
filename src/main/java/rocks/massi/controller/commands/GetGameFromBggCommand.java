@@ -13,7 +13,10 @@ public class GetGameFromBggCommand extends Command {
         System.out.print(boardgame.getAlternativeNames().toString() + " ");
         System.out.println(boardgame.getDesigners().toString());
         System.out.println(boardgame.getDescription());
-        boardgame.getHonors().forEach(honor -> System.out.printf("Honor: %s\n", honor));
+
+        if (boardgame.getHonors() != null)
+            boardgame.getHonors().forEach(honor -> System.out.printf("Honor: %s\n", honor));
+
         System.out.println("Thumbnail: " + boardgame.getThumbnail());
     }
 
