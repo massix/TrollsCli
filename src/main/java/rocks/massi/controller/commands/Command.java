@@ -29,6 +29,8 @@ public abstract class Command {
     @SneakyThrows
     public Command() {
         HttpClientBuilder builder = HttpClientBuilder.create();
+        builder.setUserAgent("TrollsCli");
+
         if (ServerConfiguration.getInstance().getProxy() != null) {
             URI proxy = new URI(ServerConfiguration.getInstance().getProxy());
             builder.setProxy(new HttpHost(proxy.getHost(), proxy.getPort()));
