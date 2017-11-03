@@ -6,6 +6,7 @@ import feign.jackson.JacksonDecoder;
 import feign.jackson.JacksonEncoder;
 import feign.jaxb.JAXBContextFactory;
 import feign.jaxb.JAXBDecoder;
+import lombok.SneakyThrows;
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.DefaultParser;
 import org.apache.commons.cli.Options;
@@ -16,6 +17,8 @@ import rocks.massi.controller.configuration.ServerConfiguration;
 import rocks.massi.controller.services.BGGXmlApi;
 import rocks.massi.controller.services.TrollsServer;
 
+import java.net.URI;
+
 public abstract class Command {
     protected TrollsServer connector;
     protected BGGXmlApi bggXmlApi;
@@ -23,20 +26,12 @@ public abstract class Command {
     Options options;
     public static String FORMAT = "%-45s %s %n";
 
+    @SneakyThrows
     public Command() {
         HttpClientBuilder builder = HttpClientBuilder.create();
-
         if (ServerConfiguration.getInstance().getProxy() != null) {
-            String proxy = ServerConfiguration.getInstance().getProxy();
-            String host = proxy;
-            int port = 80;
-            if (proxy.contains(":")) {
-                String[] hostAndPort = proxy.split(":");
-                host = hostAndPort[0];
-                port = Integer.valueOf(hostAndPort[1]);
-            }
-
-            builder.setProxy(new HttpHost(host, port));
+            URI proxy = new URI(ServerConfiguration.getInstance().getProxy());
+            builder.setProxy(new HttpHost(proxy.getHost(), proxy.getPort()));
         }
 
         connector = Feign.builder()
