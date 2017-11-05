@@ -28,6 +28,7 @@ public class GetGameCommand extends Command {
                     game.getName().substring(0, Math.min(58, game.getName().length())),
                     game.getRank(),
                     String.join(", ", owners)));
+            System.out.println(game.getDescription());
         }
         else {
             System.err.println("Game with id " + gameId + " doesn't exist.");
