@@ -23,6 +23,8 @@ public class AddUserCommand extends Command {
         User toBeAdded = new User();
         toBeAdded.setBggNick(bggNick);
         toBeAdded.setForumNick(forumNick);
+        toBeAdded.setGames("");
+        toBeAdded.setWants("");
 
         try {
             User ret = connector.addUser(toBeAdded);

@@ -16,8 +16,10 @@ public class User {
 
     public List<Integer> buildCollection() {
         List<Integer> ret = new LinkedList<>();
-        for(String game : games.split(" ")) {
-            ret.add(Integer.valueOf(game));
+        if (!games.isEmpty()) {
+            for (String game : games.split(" ")) {
+                ret.add(Integer.valueOf(game));
+            }
         }
         return ret;
     }
