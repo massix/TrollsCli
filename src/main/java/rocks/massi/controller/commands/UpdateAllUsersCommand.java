@@ -12,19 +12,6 @@ public class UpdateAllUsersCommand extends Command {
     public void run(String[] args) throws ParseException, HelpRequestedException {
         List<User> users = connector.getAllUsers();
         for (User u : users) {
-            User ret = null;
-            while (ret == null) {
-                try {
-                    ret = connector.crawlUser(u.getBggNick());
-                    Thread.sleep(250);
-                } catch (Exception e) {
-                    /* Do nothing */
-                }
-            }
-
-            List<Integer> userCollection = u.buildCollection();
-
-            System.out.printf("%-15s %d\n", u.getBggNick(), userCollection.size());
             Response r = connector.crawlCollection(u.getBggNick());
 
             if (r.headers().containsKey("location")) {
@@ -51,7 +38,7 @@ public class UpdateAllUsersCommand extends Command {
 
                 System.out.printf("\033[1K\r");
                 System.out.flush();
-                System.out.printf("  -> (%d/%d)\n\n", queue.getCrawled() + queue.getCacheHit(), queue.getTotal());
+                System.out.printf("  -> (%d/%d) [%d cache hit]\n\n", queue.getCrawled() + queue.getCacheHit(), queue.getTotal(), queue.getCacheHit());
             }
 
             else {
