@@ -13,21 +13,13 @@ public class GetGameCommand extends Command {
         int gameId = parseArgsForInt(args);
 
         Game game = connector.getGame(gameId);
-        List<User> users = connector.getAllUsers();
         if (game != null) {
-            List<String> owners = new LinkedList<>();
-            for (User u : users) {
-                if (u.buildCollection().contains(game.getId())) {
-                    owners.add(u.getBggNick());
-                }
-            }
-
             System.out.println(String.format("%-10s %-60s %-7s %s", "id", "name", "rank", "owners"));
             System.out.println(String.format("%-10d %-60s %-7d %s",
                     game.getId(),
                     game.getName().substring(0, Math.min(58, game.getName().length())),
                     game.getRank(),
-                    String.join(", ", owners)));
+                    ""));
             System.out.println(game.getDescription());
         }
         else {

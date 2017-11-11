@@ -13,6 +13,8 @@ public class AddUserCommand extends Command {
 
         options.addRequiredOption("b", "bggNick", true, "Nick on bgg");
         options.addRequiredOption("f", "forumNick", true, "Nick on the forum");
+        options.addRequiredOption("p", "password", true, "Password for the user");
+        options.addRequiredOption("e", "email", true, "Email");
     }
 
     @Override
@@ -20,11 +22,13 @@ public class AddUserCommand extends Command {
         CommandLine cli = new DefaultParser().parse(options, args);
         String bggNick = cli.getOptionValue("b");
         String forumNick = cli.getOptionValue("f");
+        String password = cli.getOptionValue("p");
+        String email = cli.getOptionValue("e");
         User toBeAdded = new User();
         toBeAdded.setBggNick(bggNick);
         toBeAdded.setForumNick(forumNick);
-        toBeAdded.setGames("");
-        toBeAdded.setWants("");
+        toBeAdded.setPassword(password);
+        toBeAdded.setEmail(email);
 
         try {
             User ret = connector.addUser(toBeAdded);
@@ -42,6 +46,6 @@ public class AddUserCommand extends Command {
 
     @Override
     public String help() {
-        return "add-user [-b nickOnBgg] [-f nickOnForum]\tCreates a new empty user";
+        return "add-user -b bgg -f forum -e email -p password\tCreates or updates an user";
     }
 }

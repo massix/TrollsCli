@@ -43,14 +43,13 @@ public class Application {
 
         // Register commands in Router
         router = new CommandRouter();
-        router.add(new CreateDatabaseCommand());
         router.add(new GetUsersCommand());
         router.add(new GetUserCommand());
         router.add(new AddUserCommand());
+        router.add(new LoginCommand());
         router.add(new RemoveUserCommand());
         router.add(new GetGameCommand());
         router.add(new SearchGameCommand());
-        router.add(new CrawlUserCommand());
         router.add(new CrawlCollectionCommand());
         router.add(new GetCollectionCommand());
         router.add(new GetQueueCommand());

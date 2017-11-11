@@ -10,11 +10,12 @@ public class GetUsersCommand extends Command {
     @Override
     public void run(String[] args) throws ParseException, HelpRequestedException {
         List<User> list = connector.getAllUsers();
-        System.out.println(String.format("  %-20s %-20s", "Nick on BGG", "Nick on Forum"));
+        System.out.println(String.format("  %-20s %-20s %-20s", "Nick on BGG", "Nick on Forum", "Email"));
         System.out.println("----------------------------------------------------------------");
-        list.forEach(user -> System.out.println(String.format("  %-20s %-20s",
+        list.forEach(user -> System.out.println(String.format("  %-20s %-20s %-20s",
                 user.getBggNick(),
-                user.getForumNick())));
+                user.getForumNick(),
+                user.getEmail() != null ? user.getEmail() : "not entered")));
     }
 
     @Override

@@ -1,11 +1,11 @@
 package rocks.massi.controller.services;
 
-import feign.Headers;
-import feign.Param;
-import feign.RequestLine;
-import feign.Response;
+import feign.*;
+import rocks.massi.controller.authorization.JWTToken;
+import rocks.massi.controller.data.LoginInformation;
 import rocks.massi.controller.data.trolls.*;
 
+import java.util.HashMap;
 import java.util.List;
 
 public interface TrollsServer {
@@ -19,11 +19,12 @@ public interface TrollsServer {
     @Headers({"Content-Type: application/json"})
     User addUser(final User user);
 
+    @RequestLine("POST /v1/users/login")
+    @Headers({"Content-Type: application/json"})
+    Response login(final LoginInformation loginInformation);
+
     @RequestLine("DELETE /v1/users/remove/{nick}")
     User removeUser(@Param("nick") final String nick);
-
-    @RequestLine("POST /v1/crawler/users/{nick}")
-    User crawlUser(@Param("nick") final String nick);
 
     @RequestLine("POST /v1/crawler/collection/{nick}")
     Response crawlCollection(@Param("nick") final String nick);
@@ -32,10 +33,10 @@ public interface TrollsServer {
     Queue getQueue(@Param("id") final int id);
 
     @RequestLine("GET /v1/crawler/queues")
-    List<Queue> getQueues();
+    List<Queue> getQueues(@HeaderMap HashMap<String, String> headers);
 
     @RequestLine("DELETE /v1/crawler/queues")
-    List<Queue> purgeCompletedQueues();
+    List<Queue> purgeCompletedQueues(@HeaderMap HashMap<String, String> headers);
 
     @RequestLine("GET /v1/games/get/{id}")
     Game getGame(@Param("id") final int id);
@@ -45,9 +46,6 @@ public interface TrollsServer {
 
     @RequestLine("GET /v1/collection/get/{user}")
     List<Game> getCollection(@Param("user") final String user);
-
-    @RequestLine("POST /v1/dbcontroller/create")
-    void createSchema();
 
     @RequestLine("GET /v1/server/information")
     ServerInformation getVersion();
