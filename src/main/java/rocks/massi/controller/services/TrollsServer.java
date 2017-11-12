@@ -27,10 +27,10 @@ public interface TrollsServer {
     User removeUser(@Param("nick") final String nick);
 
     @RequestLine("POST /v1/crawler/collection/{nick}")
-    Response crawlCollection(@Param("nick") final String nick);
+    Response crawlCollection(@HeaderMap HashMap<String, String> headers, @Param("nick") final String nick);
 
     @RequestLine("GET /v1/crawler/queue/{id}")
-    Queue getQueue(@Param("id") final int id);
+    Queue getQueue(@HeaderMap HashMap<String, String> headers, @Param("id") final int id);
 
     @RequestLine("GET /v1/crawler/queues")
     List<Queue> getQueues(@HeaderMap HashMap<String, String> headers);

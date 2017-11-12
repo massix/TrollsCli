@@ -2,6 +2,7 @@ package rocks.massi.controller.commands;
 
 import feign.Response;
 import org.apache.commons.cli.ParseException;
+import rocks.massi.controller.authorization.JWTToken;
 import rocks.massi.controller.data.trolls.Queue;
 import rocks.massi.controller.data.trolls.User;
 
@@ -12,14 +13,14 @@ public class UpdateAllUsersCommand extends Command {
     public void run(String[] args) throws ParseException, HelpRequestedException {
         List<User> users = connector.getAllUsers();
         for (User u : users) {
-            Response r = connector.crawlCollection(u.getBggNick());
+            Response r = connector.crawlCollection(JWTToken.getInstance().getHeadersMap(), u.getBggNick());
 
             if (r.headers().containsKey("location")) {
                 String location = (String) r.headers().get("location").toArray()[0];
                 String locationSplit[] = location.split("/");
                 int queueId = Integer.valueOf(locationSplit[locationSplit.length - 1]);
                 System.out.printf("  -> Monitoring Queue %d\n", queueId);
-                Queue queue = connector.getQueue(queueId);
+                Queue queue = connector.getQueue(JWTToken.getInstance().getHeadersMap(), queueId);
 
                 while (queue.isRunning()) {
                     System.out.printf("\033[1K\r");
@@ -33,7 +34,7 @@ public class UpdateAllUsersCommand extends Command {
                         e.printStackTrace();
                     }
 
-                    queue = connector.getQueue(queueId);
+                    queue = connector.getQueue(JWTToken.getInstance().getHeadersMap(), queueId);
                 }
 
                 System.out.printf("\033[1K\r");

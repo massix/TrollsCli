@@ -2,6 +2,7 @@ package rocks.massi.controller.commands;
 
 import feign.FeignException;
 import org.apache.commons.cli.ParseException;
+import rocks.massi.controller.authorization.JWTToken;
 import rocks.massi.controller.data.trolls.Queue;
 
 public class GetQueueCommand extends Command {
@@ -10,7 +11,7 @@ public class GetQueueCommand extends Command {
         int queueId = parseArgsForInt(args);
 
         try {
-            Queue queue = connector.getQueue(queueId);
+            Queue queue = connector.getQueue(JWTToken.getInstance().getHeadersMap(), queueId);
             queue.print();
         }
         catch (FeignException exc) {

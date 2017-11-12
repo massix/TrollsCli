@@ -2,6 +2,7 @@ package rocks.massi.controller.commands;
 
 import feign.Response;
 import org.apache.commons.cli.ParseException;
+import rocks.massi.controller.authorization.JWTToken;
 
 public class CrawlCollectionCommand extends Command {
     private static final int SC_ACCEPTED = 202;
@@ -10,7 +11,7 @@ public class CrawlCollectionCommand extends Command {
     public void run(String[] args) throws ParseException, HelpRequestedException {
         String nick = parseArgsForString(args);
 
-        Response response = connector.crawlCollection(nick);
+        Response response = connector.crawlCollection(JWTToken.getInstance().getHeadersMap(), nick);
         if (response.status() == SC_ACCEPTED) {
             System.out.println("Started (or continued) crawling the collection of user " + nick);
             System.out.println("Queue ID: " + response.headers().get("Location"));
